@@ -38,6 +38,16 @@ Use the existing CLI tools before editing files by hand. A tool that rewrites th
 - When annotations are missing, run `pyrefly infer <path>` first. It writes inferred annotations into the file. Review its output, then hand-write only what it couldn't infer.
 - If the project uses a different checker (pyright, mypy, ty) in its config or CI, use that one to verify. `pyrefly infer` is still fine for filling in annotations.
 
+## Code style
+
+- Never write `from <mod> import *`. Import each name you use. In an `__init__.py` that re-exports names, import them explicitly and list them in `__all__`.
+- Avoid `try`/`except`. Check the condition first when you can: `key in d` or `d.get(key)`, `isinstance`, `str.isdigit`, `Path.exists`.
+- Use `try`/`except` only when no check can predict the failure, for example network calls, or file access another process may change. Catch the narrowest exception type, keep only the failing call inside `try`, and never write a bare `except:` or `except Exception: pass`.
+
+## Version-specific rules
+
+Before writing Python, read `requires-python` in `pyproject.toml` (or `.python-version`) to find the lowest supported version. Then read every file in `~/.claude/skills/python/versions/` whose name is at or below that version. For example, a project on `>=3.15` reads `3.15.md`.
+
 ## Order of work
 
 1. Make the change.

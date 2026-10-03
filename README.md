@@ -10,6 +10,8 @@ My user-level Claude Code rules, skills, and hooks. `install.ps1` links them int
 | `skills/<name>/SKILL.md` | `~/.claude/skills/<name>` | Claude decides the task matches the skill's `description`, or you type `/<name>`. |
 | `hooks/` | `~/.claude/hooks/` | `~/.claude/settings.json` calls the hook script. |
 
+Version-specific rules live in `skills/<lang>/versions/<version>.md`, not in `rules/`. Files in `rules/` load for every matching path, but `paths:` can't check the project's language version. The main rule tells Claude which version files to read, so a project on an older version never loads them.
+
 Each language gets a rule and a skill. The rule loads as soon as Claude touches a matching file. The skill covers questions asked before any file is open, and it points back to the rule, so the rule file is the only copy of the content.
 
 ## Install
