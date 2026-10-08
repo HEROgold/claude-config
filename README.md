@@ -17,8 +17,8 @@ Each language gets a rule and a skill. The rule loads as soon as Claude touches 
 ## Install
 
 ```powershell
-git clone https://github.com/HEROgold/claude-config $HOME\Documents\GitHub\claude-config
-& $HOME\Documents\GitHub\claude-config\install.ps1
+git clone https://github.com/HEROgold/claude-config $HOME\claude-config
+& $HOME\claude-config\install.ps1
 ```
 
 The script creates directory junctions, which need no admin rights. It is safe to re-run. If a real folder already sits at a target path, the script moves it to `~/.claude/backups/claude-config-<timestamp>/` and does not delete it.
