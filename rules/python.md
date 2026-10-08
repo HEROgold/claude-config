@@ -43,6 +43,26 @@ Use the existing CLI tools before editing files by hand. A tool that rewrites th
 - Never write `from <mod> import *`. Import each name you use. In an `__init__.py` that re-exports names, import them explicitly and list them in `__all__`.
 - Avoid `try`/`except`. Check the condition first when you can: `key in d` or `d.get(key)`, `isinstance`, `str.isdigit`, `Path.exists`.
 - Use `try`/`except` only when no check can predict the failure, for example network calls, or file access another process may change. Catch the narrowest exception type, keep only the failing call inside `try`, and never write a bare `except:` or `except Exception: pass`.
+- If an `__init__` only copies its parameters onto `self`, replace it with `@dataclass`. Declare each parameter as a field. Put keyword-only parameters after a `_: KW_ONLY` marker.
+
+  ```python
+  # Don't
+  class Notifier:
+      def __init__(self, client: Client, store: SteamSaleStore, *, color: int | None) -> None:
+          self.client = client
+          self.store = store
+          self.color = color
+
+  # Do
+  @dataclass
+  class Notifier:
+      client: Client
+      store: SteamSaleStore
+      _: KW_ONLY
+      color: int | None
+  ```
+
+  Keep a hand-written `__init__` if it validates, converts, or derives values. Keep it too if the class can't be a dataclass, for example when its base class defines its own `__init__`. If only part of the setup is extra work, keep the dataclass and do that work in `__post_init__`.
 
 ## Version-specific rules
 
