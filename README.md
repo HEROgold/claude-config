@@ -1,6 +1,6 @@
 # claude-config
 
-My user-level Claude Code rules, skills, and hooks. `install.ps1` links them into `~/.claude`, so every project on the machine picks them up.
+My user-level Claude Code rules and skills. `install.ps1` links them into `~/.claude`, so every project on the machine picks them up.
 
 ## Layout
 
@@ -8,7 +8,6 @@ My user-level Claude Code rules, skills, and hooks. `install.ps1` links them int
 | --- | --- | --- |
 | `rules/*.md` | `~/.claude/rules/` | Claude reads a file matching the rule's `paths:` frontmatter. A rule without `paths:` loads every session. |
 | `skills/<name>/SKILL.md` | `~/.claude/skills/<name>` | Claude decides the task matches the skill's `description`, or you type `/<name>`. |
-| `hooks/` | `~/.claude/hooks/` | `~/.claude/settings.json` calls the hook script. |
 
 Version-specific rules live in `skills/<lang>/versions/<version>.md`, not in `rules/`. Files in `rules/` load for every matching path, but `paths:` can't check the project's language version. The main rule tells Claude which version files to read, so a project on an older version never loads them.
 
@@ -23,15 +22,9 @@ git clone https://github.com/HEROgold/claude-config $HOME\claude-config
 
 The script creates directory junctions, which need no admin rights. It is safe to re-run. If a real folder already sits at a target path, the script moves it to `~/.claude/backups/claude-config-<timestamp>/` and does not delete it.
 
-`settings.json` is not in this repo. To use the unslop hook on a new machine, add this to `~/.claude/settings.json`:
+`skills/gh` and `skills/unslop` are gitignored. They are installed from upstream, not written here.
 
-```json
-"hooks": {
-  "UserPromptSubmit": [
-    { "hooks": [ { "type": "command", "command": "python \"$HOME/.claude/hooks/unslop_reminder.py\"", "timeout": 10 } ] }
-  ]
-}
-```
+`rules/unslop.md` has no `paths:`, so it loads every session. Its body is `@~/.claude/skills/unslop/SKILL.md`, which pulls the installed skill's text into context once per session. Updating the upstream skill updates the rule.
 
 ## Adding a language
 
