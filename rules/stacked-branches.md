@@ -2,6 +2,11 @@
 
 When a session covers more than one issue, ticket, feature or concept, put each one on its own branch and stack the branches in the order you build them. Each branch then becomes one small PR that reviews and merges on its own, rather than one large mixed diff.
 
+## Where this applies
+
+- Only in a git repository whose remote points at GitHub. Before you start, check with `git remote -v` that a remote URL is on `github.com`.
+- If the folder isn't a git repository, or none of its remotes is on GitHub, this rule doesn't apply. Don't run `gh stack` there.
+
 ## Building the stack
 
 - Before the first change, start a stack with `gh stack init <branch>`. If the work builds on a branch other than the default branch, pass it as the trunk: `gh stack init --base v2 <branch>`.
