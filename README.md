@@ -23,15 +23,23 @@ git clone https://github.com/HEROgold/claude-config $HOME\claude-config
 
 The script creates directory junctions, which need no admin rights. It is safe to re-run. If a real folder already sits at a target path, the script moves it to `~/.claude/backups/claude-config-<timestamp>/` and does not delete it.
 
-`settings.json` is not in this repo. To use the unslop hook on a new machine, add this to `~/.claude/settings.json`:
+`settings.json` is not in this repo. To use the hooks on a new machine, add this to `~/.claude/settings.json`:
 
 ```json
 "hooks": {
   "UserPromptSubmit": [
     { "hooks": [ { "type": "command", "command": "python \"$HOME/.claude/hooks/unslop_reminder.py\"", "timeout": 10 } ] }
+  ],
+  "PreToolUse": [
+    { "matcher": "Bash|PowerShell", "hooks": [ { "type": "command", "command": "python \"$HOME/.claude/hooks/git_target_guard.py\"", "timeout": 15 } ] }
   ]
 }
 ```
+
+| Hook | What it does |
+| --- | --- |
+| `unslop_reminder.py` | Injects the unslop skill's rules into every turn. |
+| `git_target_guard.py` | Before a git merge, cherry-pick, rebase, reset or commit, shows Claude the live branch and the commits the operation brings in or drops. Asks you to confirm when it moves more than one commit, or on `reset --hard`. |
 
 ## Adding a language
 

@@ -1,12 +1,12 @@
-# Confirm the target right before a git write
+# Aim every git write at the branch the user named
 
-A session's git snapshot ages. The user switches branches, commits, or stashes while you work, so the branch named at session start, or a few turns ago, can be the wrong one by the time you act. A merge, cherry-pick, reset or commit on the wrong branch is local damage that someone has to notice and undo.
+A session's git snapshot ages. The user switches branches, commits, or stashes while you work. The `git_target_guard` hook shows the live branch and the commits a merge, cherry-pick, rebase, reset or commit would bring in or drop, and asks the user to confirm when an operation moves more than one commit. Read what it reports before you go on.
 
-## Before a merge, cherry-pick, rebase, reset or commit
+## Choosing the operation
 
-- Read the live branch with `git branch --show-current` in the same command that writes, and stop if it isn't the branch the user named. The user's name for the branch is the target. What was checked out earlier is not.
+- The branch the user named is the target. Compare it with the branch the hook reports, and stop if they differ.
 - When the target isn't checked out, write through a worktree of that exact branch (`git worktree add <path> <branch>`), so you leave the user's checkout alone.
-- Preview what the operation brings with `git log --oneline <target>..<source>` and `git diff --stat <target>...<source>`. "Merge the fix" means the fix. If the source also carries unrelated commits, for example a branch cut from a newer `main`, cherry-pick only the fix commit.
+- "Merge the fix" means the fix. If the source also carries unrelated commits, for example a branch cut from a newer `main`, cherry-pick only the fix commit.
 
 ## After a scripted change across many repos or folders
 
