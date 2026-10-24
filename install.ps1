@@ -1,4 +1,4 @@
-# Link this repo's rules, skills, and hooks into ~/.claude using directory junctions.
+# Link this repo's rules and skills into ~/.claude using directory junctions.
 # Junctions don't need admin rights or Developer Mode. Safe to re-run.
 # An existing real folder at a target path is moved to ~/.claude/backups/claude-config-<timestamp>/, never deleted.
 
@@ -32,7 +32,6 @@ function Link-Dir([string]$target, [string]$source) {
 New-Item -ItemType Directory -Force (Join-Path $claude 'skills') | Out-Null
 
 Link-Dir (Join-Path $claude 'rules') (Join-Path $repo 'rules')
-Link-Dir (Join-Path $claude 'hooks') (Join-Path $repo 'hooks')
 
 # Skills are linked one by one because ~/.claude/skills also holds folders Claude Code manages itself (e.g. `synced`).
 Get-ChildItem (Join-Path $repo 'skills') -Directory | ForEach-Object {
