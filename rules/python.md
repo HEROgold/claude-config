@@ -63,6 +63,25 @@ Use the existing CLI tools before editing files by hand. A tool that rewrites th
   ```
 
   Keep a hand-written `__init__` if it validates, converts, or derives values. Keep it too if the class can't be a dataclass, for example when its base class defines its own `__init__`. If only part of the setup is extra work, keep the dataclass and do that work in `__post_init__`.
+- Write a multi-line string as a triple-quoted string wrapped in `textwrap.dedent`, indented with the surrounding code. Don't build it from a parenthesised run of `"...\n"` literals. Start with `"""\` so the string doesn't begin with a newline.
+
+  ```python
+  # Don't
+  code = (
+      "import sys\n"
+      "if len(sys.argv) > 1:\n"
+      "    print(sys.argv[1])\n"
+  )
+
+  # Do
+  code = dedent("""\
+      import sys
+      if len(sys.argv) > 1:
+          print(sys.argv[1])
+      """)
+  ```
+
+  Implicit concatenation is still fine for one long line split across source lines, where the parts hold no `\n`.
 
 ## Version-specific rules
 
