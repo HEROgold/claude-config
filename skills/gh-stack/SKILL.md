@@ -16,7 +16,7 @@ Run `gh stack view --short` first. If it lists branches, the current branch is i
 | Start a stack on the trunk | `gh stack init` |
 | Turn existing branches into a stack, bottom first | `gh stack init b1 b2 b3` |
 | Commit and add a branch on top | `gh stack add -Am "<msg>" <branch>` |
-| Push every branch and open or update all PRs | `gh stack submit --auto --open` |
+| Push every branch and open or update all PRs | `gh stack submit --auto --open` (ready) or `gh stack submit --auto` (drafts) |
 | Push branches only, PRs already exist | `gh stack push` |
 | Pull trunk, cascade-rebase, push, sync PR state | `gh stack sync` |
 | Rebase after a conflict | `gh stack rebase`, fix files, `git add`, `gh stack rebase --continue` |
@@ -24,7 +24,7 @@ Run `gh stack view --short` first. If it lists branches, the current branch is i
 | Inspect state as data | `gh stack view --json` |
 | Move around | `gh stack up`, `down`, `top`, `bottom`, `trunk`, `checkout <pr#>` |
 
-`submit` is interactive by default. Pass `--auto` to skip the editor. `--auto` alone creates draft PRs, so always add `--open` to make them ready for review.
+`submit` is interactive by default. Pass `--auto` to skip the editor. `--auto` alone creates draft PRs. Add `--open` to make them ready for review. The `pull-requests` skill says which to use.
 
 ## Fixing a lower branch
 
