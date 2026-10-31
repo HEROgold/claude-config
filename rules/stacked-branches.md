@@ -18,7 +18,7 @@ When a session covers more than one issue, ticket, feature or concept, put each 
 
 ## Publishing
 
-- `gh stack push` and `gh stack submit` publish to GitHub. Run them only when the user asks you to push or open PRs.
+- `gh stack push` and `gh stack submit` publish to GitHub. The `pull-requests` skill decides when to open PRs and whether they start as drafts.
 - Keep the stack in step with the remote with `gh stack sync`.
 
 ## When not to stack
