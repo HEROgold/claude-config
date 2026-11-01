@@ -32,6 +32,7 @@ function Link-Dir([string]$target, [string]$source) {
 New-Item -ItemType Directory -Force (Join-Path $claude 'skills') | Out-Null
 
 Link-Dir (Join-Path $claude 'rules') (Join-Path $repo 'rules')
+Link-Dir (Join-Path $claude 'agents') (Join-Path $repo 'agents')
 
 # Skills are linked one by one because ~/.claude/skills also holds folders Claude Code manages itself (e.g. `synced`).
 Get-ChildItem (Join-Path $repo 'skills') -Directory | ForEach-Object {
