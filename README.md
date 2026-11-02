@@ -22,7 +22,7 @@ git clone https://github.com/HEROgold/claude-config $HOME\claude-config
 
 The script creates directory junctions, which need no admin rights. It is safe to re-run. If a real folder already sits at a target path, the script moves it to `~/.claude/backups/claude-config-<timestamp>/` and does not delete it.
 
-`skills/gh` and `skills/unslop` are gitignored. They are installed from upstream, not written here.
+`skills/gh` and `skills/unslop` are gitignored. They are installed from upstream, not written here. Notes of my own on top of an upstream skill go in a separate skill, such as `skills/gh-projects`, so an upstream update doesn't overwrite them.
 
 `rules/unslop.md` has no `paths:`, so it loads every session. Its body is `@~/.claude/skills/unslop/SKILL.md`, which pulls the installed skill's text into context once per session. Updating the upstream skill updates the rule.
 `settings.json` is not in this repo. To use the hooks on a new machine, add this to `~/.claude/settings.json`:
