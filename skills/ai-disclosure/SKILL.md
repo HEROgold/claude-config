@@ -22,11 +22,9 @@ Ask what the session did, then take the highest level that applies:
 2. Did Claude edit or create them, and has the user read the result? The level is WRITE.
 3. Did Claude produce output the user has not read and could not check, such as generated code merged without review? The level is EXECUTE.
 
-Claude wrote or edited the change in almost every session, so the answer is usually WRITE. Never pick a lower level than the session's real work. If you are unsure whether the user reviewed the result, say WRITE and name what is unreviewed in the PR body.
-
 ## Where the label goes
 
-- **PR body.** One line near the end: `0rwx: WRITE`.
+- **PR body.** One line near the top: `0rwx: WRITE`.
 - **README.** Only when the user asks for a project-level label. Copy the matching SVG from `badges/` into the repo, for example `docs/ai-write.svg`, and add `![0rwx: WRITE](docs/ai-write.svg)` plus one sentence on what the level covers.
 - **Per path.** If parts of a repo differ, list them in a small table in the README, such as `docs/` at READ and `src/` at WRITE. Do not invent a split the user has not described.
 
