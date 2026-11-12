@@ -5,7 +5,7 @@ A session's git snapshot ages. The user switches branches, commits, or stashes w
 ## Choosing the operation
 
 - The branch the user named is the target. Compare it with the branch the hook reports, and stop if they differ.
-- When the target isn't checked out, write through a worktree of that exact branch (`git worktree add <path> <branch>`), so you leave the user's checkout alone.
+- When the target isn't checked out, write through a worktree of that exact branch (see the worktrees rule for where it goes), so you leave the user's checkout alone.
 - "Merge the fix" means the fix. If the source also carries unrelated commits, for example a branch cut from a newer `main`, cherry-pick only the fix commit.
 
 ## After a scripted change across many repos or folders
