@@ -31,7 +31,12 @@ function Link-Dir([string]$target, [string]$source) {
 
 New-Item -ItemType Directory -Force (Join-Path $claude 'skills') | Out-Null
 
-Link-Dir (Join-Path $claude 'rules') (Join-Path $repo 'rules')
+# ~/.claude/rules is a real folder with one junction per repo, so claude-config and agent-home can both add rules.
+# An older install linked the whole folder to this repo's rules; remove that link (the repo's files stay).
+$rules = Join-Path $claude 'rules'
+if ((Test-Path $rules) -and (Get-Item $rules -Force).LinkType) { Remove-Item $rules -Force }
+New-Item -ItemType Directory -Force $rules | Out-Null
+Link-Dir (Join-Path $rules 'claude-config') (Join-Path $repo 'rules')
 Link-Dir (Join-Path $claude 'agents') (Join-Path $repo 'agents')
 
 # Skills are linked one by one because ~/.claude/skills also holds folders Claude Code manages itself (e.g. `synced`).

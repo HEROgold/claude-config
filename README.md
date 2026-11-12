@@ -6,7 +6,7 @@ My user-level Claude Code rules and skills. `install.ps1` links them into `~/.cl
 
 | Path | Linked to | Loaded when |
 | --- | --- | --- |
-| `rules/*.md` | `~/.claude/rules/` | Claude reads a file matching the rule's `paths:` frontmatter. A rule without `paths:` loads every session. |
+| `rules/*.md` | `~/.claude/rules/claude-config/` | Claude reads a file matching the rule's `paths:` frontmatter. A rule without `paths:` loads every session. |
 | `skills/<name>/SKILL.md` | `~/.claude/skills/<name>` | Claude decides the task matches the skill's `description`, or you type `/<name>`. |
 
 Version-specific rules live in `skills/<lang>/versions/<version>.md`, not in `rules/`. Files in `rules/` load for every matching path, but `paths:` can't check the project's language version. The main rule tells Claude which version files to read, so a project on an older version never loads them.
